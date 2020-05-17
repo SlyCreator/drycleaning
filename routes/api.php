@@ -40,24 +40,22 @@ Route::prefix('v1')->group(function(){
     });
             /** Admin functionality*/
     Route::group(['namespace' => 'Admin'],function() {
-            Route::prefix('services')->group(function (){
+            Route::prefix('service')->group(function (){
                     Route::get('/','ServiceController@index');
                     Route::post('/','ServiceController@create');
-                    Route::prefix()->group(function (){
+                    Route::prefix('{serviceId}')->group(function (){
                             Route::get('/','ServiceController@show');
                             Route::put('/','ServiceController@update');
                             Route::delete('/','ServiceController@delete');
                     });
             });
             Route::prefix('invoice')->group(function (){
+                    Route::get('/','InvoiceController@index');
                     Route::post('/','InvoiceController@create');
-                    Route::prefix('Admin')->group(function(){
-                            Route::get('/','InvoiceController@index');
-                            Route::prefix('{invoiceId}')->group(function (){
-                                    Route::get('/','InvoiceController@show');
-                                    Route::put('/','InvoiceController@update');
-                                    Route::delete('/','InvoiceController@delete');
-                            });
+                    Route::prefix('{invoiceId}')->group(function (){
+                            Route::get('/','InvoiceController@show');
+                            Route::put('/','InvoiceController@update');
+                            Route::delete('/','InvoiceController@delete');
                     });
             });
     });
