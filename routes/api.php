@@ -49,16 +49,16 @@ Route::prefix('v1')->group(function(){
                             Route::delete('/','ServiceController@delete');
                     });
             });
-            Route::prefix('invoice')->group(function (){
-                    Route::post('/','InvoiceController@create');
-                    Route::prefix('Admin')->group(function(){
-                            Route::get('/','InvoiceController@index');
-                            Route::prefix('{invoiceId}')->group(function (){
-                                    Route::get('/','InvoiceController@show');
-                                    Route::put('/','InvoiceController@update');
-                                    Route::delete('/','InvoiceController@delete');
-                            });
-                    });
-            });
+//            Route::prefix('invoice')->group(function (){
+//                    Route::post('/','InvoiceController@create');
+//                    Route::prefix('Admin')->group(function(){
+//                            Route::get('/','InvoiceController@index');
+//                            Route::prefix('{invoiceId}')->group(function (){
+//                                    Route::get('/','InvoiceController@show');
+//                                    Route::put('/','InvoiceController@update');
+//                                    Route::delete('/','InvoiceController@delete');
+//                            });
+//                    });
+//            });
     });
 });
