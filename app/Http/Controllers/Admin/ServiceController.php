@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class ServiceController extends Controller
 {
+    /**
+     * @var ServiceRepositoryInterface
+     */
+    private $service;
+
     public function __construct(ServiceRepositoryInterface $service)
     {
         $this->service = $service;
@@ -20,9 +25,9 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {http://127.0.0.1:8000/api/v1/service
-        $data = $this->service->index();
-        dd($data);
+    {
+        $data = $this->service->fetchAll();
+        return response()->json(['data'=>$data]);
     }
 
     /**
@@ -32,25 +37,11 @@ class ServiceController extends Controller
      * @param Service $service
      * @return void
      */
-    public function create(Request $request)
+    public function create(Service $service)
     {
-        //dd($request->all());
-        $service = $this->service->create($request->all());
-        dd($service);
-        return $service;
+        $service = $this->service->create($service->all());
+        return response()->json(['message'=>'success']);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -58,20 +49,9 @@ class ServiceController extends Controller
      * @param Service $service
      * @return void
      */
-    public function show(Request $request,Service $service)
+    public function show($serviceId)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Service $service)
-    {
-        //
+      return $this->service->fetch($serviceId);
     }
 
     /**
@@ -81,19 +61,22 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Service $service,$serviceId)
     {
-        //
+
+         $this->service->update($service,$serviceId);
+        return response()->json(['message'=>'success']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function delete($serviceId)
     {
-        //
+
+        $this->service->delete($serviceId);
+        return response()->json(['message'=>'success']);
     }
 }

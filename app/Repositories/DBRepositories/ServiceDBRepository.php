@@ -6,6 +6,7 @@ namespace App\Repositories\DBRepositories;
 use App\Models\Service;
 use App\Repositories\RepositoryInterfaces\ServiceRepositoryInterface;
 
+
 class ServiceDBRepository implements ServiceRepositoryInterface
 {
     /**
@@ -26,8 +27,8 @@ class ServiceDBRepository implements ServiceRepositoryInterface
      */
     public function create($service)
     {
-        dd($service);
-        return Service::create();
+        $service = request()->all();
+        return Service::create($service);
     }
 
     /**
@@ -36,9 +37,9 @@ class ServiceDBRepository implements ServiceRepositoryInterface
      * @param $serviceId
      * @return mixed
      */
-    public function show($serviceId)
+    public function fetch($serviceId)
     {
-        return Service::findOrFail($serviceId)->first();
+        return Service::findOrFail($serviceId);
     }
 
     /**
@@ -50,12 +51,8 @@ class ServiceDBRepository implements ServiceRepositoryInterface
      */
     public function update($service ,$serviceId)
     {
-        $service = Service::findOrFail($serviceId);
-        return $service->update([
-            'name'  =>  $service->name,
-            'description' => $service->description,
-            'amount'   => $service->amount
-        ]);
+        $service =Service::findOrFail($serviceId);
+        return $service->update(request()->all());
     }
 
     /**
@@ -66,6 +63,7 @@ class ServiceDBRepository implements ServiceRepositoryInterface
      */
     public function delete($serviceId)
     {
-        return Service::findOrFail($serviceId)->delete();
+        return  Service::findOrFail($serviceId)->delete();
+
     }
 }
