@@ -33,7 +33,7 @@ Route::prefix('v1')->group(function(){
                     Route::post('/','BookingController@create');
                     Route::group(['prefix'=>'{booking}'],function (){
                             Route::get('/','BookingController@show');
-                            Route::put('/','BookingController@update');
+                            Route::post('/','BookingController@update');
                             Route::delete('/','BookingController@delete');
                     });
             });
@@ -45,7 +45,7 @@ Route::prefix('v1')->group(function(){
                     Route::post('/','ServiceController@create');
                     Route::prefix('{serviceId}')->group(function (){
                             Route::get('/','ServiceController@show');
-                            Route::put('/','ServiceController@update');
+                            Route::post('/','ServiceController@update');
                             Route::delete('/','ServiceController@delete');
                     });
             });
@@ -54,7 +54,7 @@ Route::prefix('v1')->group(function(){
                     Route::post('/','InvoiceController@create');
                     Route::prefix('{invoiceId}')->group(function (){
                             Route::get('/','InvoiceController@show');
-                            Route::put('/','InvoiceController@update');
+                            Route::post('/','InvoiceController@update');
                             Route::delete('/','InvoiceController@delete');
                     });
             });

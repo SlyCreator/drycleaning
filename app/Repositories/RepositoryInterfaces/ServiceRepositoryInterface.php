@@ -27,16 +27,16 @@ interface ServiceRepositoryInterface
      * @param int $serviceId
      * @return mixed
      */
-    public function show(int $serviceId);
+    public function fetch(int $serviceId);
 
     /**
      * update a service
      *
-     * @param $Service
+     * @param $service
      * @param $serviceId
      * @return mixed
      */
-    public function update($Service ,$serviceId);
+    public function update($service ,$serviceId);
 
     /**
      * delete a service
