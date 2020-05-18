@@ -14,14 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::prefix('v1')->group(function(){
 
             /**Auth namespace*/
-    Route::namespace('Auth')->group(function (){
+    Route::group(['namespace'=>'Auth'],function (){
             Route::post('/register','AuthController@register');
             Route::post('/login','AuthController@login');
     });
