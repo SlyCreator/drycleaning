@@ -22,41 +22,42 @@ Route::prefix('v1')->group(function(){
 
             /**Auth namespace*/
     Route::namespace('Auth')->group(function (){
-            Route::post('/login','AuthController@register');
             Route::post('/register','AuthController@register');
-            Route::post('/logout','AuthController@logout');
+            Route::post('/login','AuthController@login');
     });
-            /** What action should be able to perform*/
-    Route::namespace('User')->group(function (){
-            Route::prefix('booking')->group(function (){
-                    Route::get('/','BookingController@index');
-                    Route::post('/','BookingController@create');
+
+    Route::middleware('auth:api')->group(function (){
+            Route::namespace('User')->group(function (){
+                Route::prefix('booking')->group(function (){
+                    Route::get('/','LaundryController@index');
+                    Route::post('/','LaundryController@create');
                     Route::group(['prefix'=>'{booking}'],function (){
-                            Route::get('/','BookingController@show');
-                            Route::post('/','BookingController@update');
-                            Route::delete('/','BookingController@delete');
+                        Route::get('/','LaundryController@show');
+                        Route::post('/','LaundryController@update');
+                        Route::delete('/','LaundryController@delete');
                     });
+                });
             });
-    });
             /** Admin functionality*/
-    Route::group(['namespace' => 'Admin'],function() {
-            Route::prefix('service')->group(function (){
+            Route::group(['namespace' => 'Admin'],function() {
+                Route::prefix('service')->group(function (){
                     Route::get('/','ServiceController@index');
                     Route::post('/','ServiceController@create');
                     Route::prefix('{serviceId}')->group(function (){
-                            Route::get('/','ServiceController@show');
-                            Route::post('/','ServiceController@update');
-                            Route::delete('/','ServiceController@delete');
+                        Route::get('/','ServiceController@show');
+                        Route::post('/','ServiceController@update');
+                        Route::delete('/','ServiceController@delete');
                     });
-            });
-            Route::prefix('invoice')->group(function (){
+                });
+                Route::prefix('invoice')->group(function (){
                     Route::get('/','InvoiceController@index');
                     Route::post('/','InvoiceController@create');
                     Route::prefix('{invoiceId}')->group(function (){
-                            Route::get('/','InvoiceController@show');
-                            Route::post('/','InvoiceController@update');
-                            Route::delete('/','InvoiceController@delete');
+                        Route::get('/','InvoiceController@show');
+                        Route::post('/','InvoiceController@update');
+                        Route::delete('/','InvoiceController@delete');
                     });
+                });
             });
     });
 });
