@@ -6,19 +6,22 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:55',
-            'email' => 'email|required|unique:users',
-            'password' => 'required|confirmed'
-        ]);
+//        $validatedData = $request->validate([
+//            'name' => 'required|max:55',
+//            'email' => 'email|required|unique:users',
+//            'password' => 'required|confirmed'
+//        ]);
+//        $validatedData['password'] = bcrypt($request->password);
+//        $user = User::create($validatedData);
 
-        $validatedData['password'] = bcrypt($request->password);
-
-        $user = User::create($validatedData);
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
 
         $accessToken = $user->createToken('authToken')->accessToken;
 
@@ -31,14 +34,10 @@ class AuthController extends Controller
             'email' => 'email|required',
             'password' => 'required'
         ]);
-
         if (!auth()->attempt($loginData)) {
             return response(['message' => 'Invalid Credentials']);
         }
-
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
-
         return response(['user' => auth()->user(), 'access_token' => $accessToken]);
-
     }
 }
