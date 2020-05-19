@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function(){
 
             /**Auth namespace*/
-    Route::group(['namespace'=>'Auth'],function (){
-            Route::post('/register','AuthController@register');
+    //Route::group(['namespace'=>'Auth'],function (){
+            Route::post('/register',[AuthController::class,'register']);
             Route::post('/login','AuthController@login');
-    });
+    //});
 
     Route::middleware('auth:api')->group(function (){
             Route::namespace('User')->group(function (){
@@ -35,17 +37,17 @@ Route::prefix('v1')->group(function(){
                 });
             });
             /** Admin functionality*/
-            Route::group(['namespace' => 'Admin'],function() {
-                Route::prefix('service')->group(function (){
-                    Route::get('/','ServiceController@index');
-                    Route::post('/','ServiceController@create');
+           // Route::group(['namespace' => 'Admin'],function() {
+                Route::group(['prefix'=>'service'],function (){
+                    Route::get('/',[ServiceController::class,'index']);
+                    Route::post('/',[ServiceController::class,'create']);
                     Route::prefix('{serviceId}')->group(function (){
-                        Route::get('/','ServiceController@show');
-                        Route::post('/','ServiceController@update');
-                        Route::delete('/','ServiceController@delete');
+                        Route::get('/',[ServiceController::class,'show']);
+                        Route::post('/',[ServiceController::class,'update']);
+                        Route::delete('/',[ServiceController::class,'delete']);
                     });
                 });
-                Route::prefix('invoice')->group(function (){
+                Route::group(['prefix'=>'invoice'],function (){
                     Route::get('/','InvoiceController@index');
                     Route::post('/','InvoiceController@create');
                     Route::prefix('{invoiceId}')->group(function (){
@@ -54,6 +56,6 @@ Route::prefix('v1')->group(function(){
                         Route::delete('/','InvoiceController@delete');
                     });
                 });
-            });
+           // });
     });
 });
