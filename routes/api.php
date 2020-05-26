@@ -28,12 +28,12 @@ Route::prefix('v1')->group(function(){
     Route::middleware('auth:api')->group(function (){
             Route::namespace('User')->group(function (){
                 Route::prefix('booking')->group(function (){
-                    Route::get('/','LaundryController@index');
-                    Route::post('/','LaundryController@create');
+                    Route::get('/',[LaundryController::class,'index']);
+                    Route::post('/',[LaundryController::class,'create']);
                     Route::group(['prefix'=>'{booking}'],function (){
-                        Route::get('/','LaundryController@show');
-                        Route::post('/','LaundryController@update');
-                        Route::delete('/','LaundryController@delete');
+                        Route::get('/',[LaundryController::class,'show']);
+                        Route::post('/',[LaundryController::class,'update']);
+                        Route::delete('/',[LaundryController::class,'destroy']);
                     });
                 });
             });
