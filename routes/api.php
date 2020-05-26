@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\User\LaundryController;
-
+use App\Http\Controllers\Admin\InvoiceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,12 +48,12 @@ Route::prefix('v1')->group(function(){
                     });
                 });
                 Route::group(['prefix'=>'invoice'],function (){
-                    Route::get('/','InvoiceController@index');
-                    Route::post('/','InvoiceController@create');
+                    Route::get('/',[InvoiceController::class,'index']);
+                    Route::post('/',[InvoiceController::class,'create']);
                     Route::prefix('{invoiceId}')->group(function (){
-                        Route::get('/','InvoiceController@show');
-                        Route::post('/','InvoiceController@update');
-                        Route::delete('/','InvoiceController@delete');
+                        Route::get('/',[InvoiceController::class,'show']);
+                        Route::post('/',[InvoiceController::class,'update']);
+                        Route::delete('/',[InvoiceController::class,'delete']);
                     });
                 });
            // });
