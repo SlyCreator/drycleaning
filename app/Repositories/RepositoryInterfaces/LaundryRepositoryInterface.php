@@ -20,7 +20,7 @@ interface LaundryRepositoryInterface
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store($laundry);
+    public function create($laundry);
 
     /**
      * Display the specified resource.
@@ -33,11 +33,11 @@ interface LaundryRepositoryInterface
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Laundry $laundry
+     * @param $laundryId
      * @return \Illuminate\Http\Response
      */
-    public function update($laundry);
+    public function update($laundry ,$laundryId);
 
     /**
      * Remove the specified resource from storage.
