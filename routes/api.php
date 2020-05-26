@@ -21,7 +21,7 @@ Route::prefix('v1')->group(function(){
             /**Auth namespace*/
     //Route::group(['namespace'=>'Auth'],function (){
             Route::post('/register',[AuthController::class,'register']);
-            Route::post('/login','AuthController@login');
+            Route::post('/login',[AuthController::class,'login']);
     //});
 
     Route::middleware('auth:api')->group(function (){
@@ -37,12 +37,11 @@ Route::prefix('v1')->group(function(){
                 });
             });
             /** Admin functionality*/
-           // Route::group(['namespace' => 'Admin'],function() {
                 Route::group(['prefix'=>'service'],function (){
-                    Route::get('/',[ServiceController::class,'index']);
+                    Route::get('/',[ServiceController::class,'index'])->withoutMiddleware('auth:api');
                     Route::post('/',[ServiceController::class,'create']);
                     Route::prefix('{serviceId}')->group(function (){
-                        Route::get('/',[ServiceController::class,'show']);
+                        Route::get('/',[ServiceController::class,'show'])->withoutMiddleware('auth:api');
                         Route::post('/',[ServiceController::class,'update']);
                         Route::delete('/',[ServiceController::class,'delete']);
                     });
