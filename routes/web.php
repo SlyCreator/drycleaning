@@ -13,7 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/ma', function () {
-    return view('welcome');
-});
 
