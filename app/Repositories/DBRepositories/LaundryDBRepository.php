@@ -16,7 +16,7 @@ class LaundryDBRepository implements LaundryRepositoryInterface
      */
     public function fetchAll()
     {
-        //
+        return Laundry::paginate(10);
     }
 
     /**
@@ -25,9 +25,15 @@ class LaundryDBRepository implements LaundryRepositoryInterface
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($laundry)
+    public function create($laundry)
     {
-        //
+        $data = request()->all();
+        $laundry = new Laundry;
+        $laundry->user_id = $data->user()->id;
+        $laundry->service_id = $data->service_id;
+        $laundry->address   = $data->address;
+        $laundry->amount    = is_delivered;
+        $laundry->cloth_no  =   $data->cloth_no;
     }
 
     /**
@@ -36,21 +42,28 @@ class LaundryDBRepository implements LaundryRepositoryInterface
      * @param  \App\Laundry  $laundry
      * @return \Illuminate\Http\Response
      */
-    public function fetch($laundry)
+    public function fetch($laundryId)
     {
-        //
+        return Laundry::findOrFail($laundryId);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Laundry  $laundry
-     * @return \Illuminate\Http\Response
+     * @param \App\Laundry $laundry
+     * @param $laundryId
+     * @return void
      */
-    public function update($laundry)
+    public function update($laundry,$laundryId)
     {
-        //
+        $data = request()->all();
+        $laundry    =   Laundry::findOrFail($laundryId);
+        $laundry->user_id = $data->user()->id;
+        $laundry->service_id = $data->service_id;
+        $laundry->address   = $data->address;
+        $laundry->amount    = is_delivered;
+        $laundry->cloth_no  =   $data->cloth_no;
+        $laundry->save();
     }
 
     /**
@@ -59,8 +72,8 @@ class LaundryDBRepository implements LaundryRepositoryInterface
      * @param  \App\Laundry  $laundry
      * @return \Illuminate\Http\Response
      */
-    public function destroy($laundry)
+    public function destroy($laundryId)
     {
-        //
+        return Laundry::findOrFail($laundryId)->delete();
     }
 }
