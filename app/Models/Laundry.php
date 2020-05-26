@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Models;
-
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Laundry extends Model
 {
-    protected $fillable = [ 'user_id','cloth_no','service_id'];
+    protected $fillable = [ 'user_id','service_id','address','amount','is_delivered','cloth_no'];
 
     public function user()
     {

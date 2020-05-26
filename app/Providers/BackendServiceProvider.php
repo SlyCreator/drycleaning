@@ -12,7 +12,9 @@ class BackendServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'App\Repositories\RepositoryInterfaces\ServiceRepositoryInterface',
-            'App\Repositories\DBRepositories\ServiceDBRepository'
+            'App\Repositories\DBRepositories\ServiceDBRepository',
+            'App\Repositories\RepositoryInterfaces\LaundryRepositoryInterface',
+            'App\Repositories\DBRepositories\LaundryDBRepository'
 
         );
     }
