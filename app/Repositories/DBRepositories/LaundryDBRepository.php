@@ -27,13 +27,16 @@ class LaundryDBRepository implements LaundryRepositoryInterface
      */
     public function create($laundry)
     {
+        dd(request()->service_id->service());
         $data = request()->all();
         $laundry = new Laundry;
-        $laundry->user_id = $data->user()->id;
-        $laundry->service_id = $data->service_id;
-        $laundry->address   = $data->address;
-        $laundry->amount    = is_delivered;
-        $laundry->cloth_no  =   $data->cloth_no;
+        $laundry->user_id = \request()->user()->id;
+        $laundry->service_id = $data['service_id'];
+        $laundry->address   = $data['address'];
+        $laundry->amount    = request()->service()->amount;
+        $laundry->cloth_no  =   $data['clotho_no'];
+        $laundry->save();
+        return ;
     }
 
     /**
