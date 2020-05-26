@@ -42,6 +42,7 @@ class LaundryController extends Controller
      */
     public function create(Laundry $laundry)
     {
+
         $laundry = $this->laundry->create($laundry->all());
         return response()->json(['message'=>'succcess']);
     }
