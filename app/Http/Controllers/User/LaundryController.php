@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Laundry;
+use App\Models\Laundry;
 use App\Http\Controllers\Controller;
 use App\Repositories\RepositoryInterfaces\LaundryRepositoryInterface;
 use Illuminate\Http\Request;
