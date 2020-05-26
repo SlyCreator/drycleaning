@@ -4,10 +4,25 @@ namespace App\Http\Controllers\User;
 
 use App\Laundry;
 use App\Http\Controllers\Controller;
+use App\Repositories\RepositoryInterfaces\LaundryRepositoryInterface;
 use Illuminate\Http\Request;
 
 class LaundryController extends Controller
 {
+    /**
+     * @var LaundryRepositoryInterface
+     */
+    private $laundry;
+
+    /**
+     * LaundryController constructor.
+     * @param LaundryRepositoryInterface $laundry
+     */
+    public function __construct(LaundryRepositoryInterface $laundry)
+    {
+        $this->laundry =   $laundry;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +30,8 @@ class LaundryController extends Controller
      */
     public function index()
     {
-        //
+        $laundry    =   $this->laundry->fetchAll();
+        return response()->json(['data'=>$laundry]);
     }
 
     /**
@@ -24,9 +40,10 @@ class LaundryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(Laundry $laundry)
     {
-        //
+        $laundry = $this->laundry->create($laundry->all());
+        return response()->json(['message'=>'succcess']);
     }
 
     /**
@@ -35,9 +52,9 @@ class LaundryController extends Controller
      * @param  \App\Laundry  $laundry
      * @return \Illuminate\Http\Response
      */
-    public function show(Laundry $laundry)
+    public function show($laundryId)
     {
-        //
+        return $this->laundry->fetch($laundryId);
     }
 
     /**
@@ -47,9 +64,10 @@ class LaundryController extends Controller
      * @param  \App\Laundry  $laundry
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Laundry $laundry)
+    public function update(Laundry $laundry,$laundryId)
     {
-        //
+        $this->laundry->update($laundry,$laundryId);
+        return response()->json(['message'=>'success']);
     }
 
     /**
@@ -58,8 +76,9 @@ class LaundryController extends Controller
      * @param  \App\Laundry  $laundry
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Laundry $laundry)
+    public function destroy($laundryId)
     {
-        //
+        $this->laundry->destroy($laundryId);
+        return response()->json(['message'=>'success']);
     }
 }

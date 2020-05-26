@@ -63,7 +63,6 @@ class ServiceController extends Controller
      */
     public function update(Service $service,$serviceId)
     {
-
          $this->service->update($service,$serviceId);
         return response()->json(['message'=>'success']);
     }
