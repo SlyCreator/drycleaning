@@ -81,4 +81,13 @@ class LaundryDBRepository implements LaundryRepositoryInterface
         return Laundry::findOrFail($laundryId)->delete();
     }
 
+    /**
+     * Mark as delivered
+     * @param $laundryId
+     * @return \Illuminate\Http\Response
+     */
+        public function isDelivered($laundryId)
+        {
+            return  Laundry::findOrFail($laundryId)->update(['is_delivered'=>true]);
+        }
 }

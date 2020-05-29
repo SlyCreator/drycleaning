@@ -47,6 +47,15 @@ interface LaundryRepositoryInterface
      */
     public function destroy($laundry);
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * mark as delivered
+     * @param $laundryId
+     * @return \Illuminate\Http\Response
+     */
+    public function isDelivered($laundryId);
+
 }
 
 
