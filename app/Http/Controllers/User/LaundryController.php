@@ -89,7 +89,7 @@ class LaundryController extends Controller
      */
     public function delivered ($laundryId)
     {
-        $this->laundry->update($laundryId);
+        $this->laundry->isDelivered($laundryId);
         return response()->json(['message'=>'success']);
     }
 }
