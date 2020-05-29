@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Invoice;
+use App\Repositories\RepositoryInterfaces\InvoiceRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class InvoiceController extends Controller
 {
+    public function __construct(InvoiceRepositoryInterface $invoice)
+    {
+        $this->invoice = $invoice ;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
