@@ -17,4 +17,9 @@ class Laundry extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
+    }
 }

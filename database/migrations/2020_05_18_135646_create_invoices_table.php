@@ -15,6 +15,19 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->string('ref_code');
+
+            $table->unsignedBigInteger('laundry_id');
+            $table->foreign('laundry_id')->references('id')
+                ->on('laundries')->onDelete('cascade');
+
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')
+                ->on('users')->onDelete('cascade');
+
+
+            $table->string('is_paid')->default(false);
+
             $table->timestamps();
         });
     }
