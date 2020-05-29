@@ -4,6 +4,7 @@
 namespace App\Repositories\DBRepositories;
 
 
+use App\Models\Service;
 use App\Repositories\RepositoryInterfaces\LaundryRepositoryInterface;
 use App\Models\Laundry;
 
@@ -27,13 +28,12 @@ class LaundryDBRepository implements LaundryRepositoryInterface
      */
     public function create($laundry)
     {
-        dd(request()->service_id->service());
         $data = request()->all();
         $laundry = new Laundry;
         $laundry->user_id = \request()->user()->id;
         $laundry->service_id = $data['service_id'];
         $laundry->address   = $data['address'];
-        $laundry->amount    = request()->service()->amount;
+        $laundry->amount    = $laundry->service->amount;
         $laundry->cloth_no  =   $data['clotho_no'];
         $laundry->save();
         return ;
