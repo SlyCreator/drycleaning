@@ -82,4 +82,14 @@ class LaundryController extends Controller
         $this->laundry->destroy($laundryId);
         return response()->json(['message'=>'success']);
     }
+
+    /**
+     * Update laundry as delivered
+     *
+     */
+    public function delivered ($laundryId)
+    {
+        $this->laundry->update($laundryId);
+        return response()->json(['message'=>'success']);
+    }
 }
