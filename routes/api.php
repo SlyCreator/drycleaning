@@ -34,6 +34,8 @@ Route::prefix('v1')->group(function(){
                         Route::get('/',[LaundryController::class,'show']);
                         Route::post('/',[LaundryController::class,'update']);
                         Route::delete('/',[LaundryController::class,'destroy']);
+                        Route::post('/',[LaundryController::class,'update']);
+                        Route::post('/Delivered',[LaundryController::class,'delivered']);
                     });
                 });
             });

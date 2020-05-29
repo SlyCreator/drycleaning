@@ -33,8 +33,8 @@ class LaundryDBRepository implements LaundryRepositoryInterface
         $laundry->user_id = \request()->user()->id;
         $laundry->service_id = $data['service_id'];
         $laundry->address   = $data['address'];
-        $laundry->amount    = $laundry->service->amount;
-        $laundry->cloth_no  =   $data['clotho_no'];
+        $laundry->amount    = $laundry->service->amount * $data['cloth_no'];
+        $laundry->cloth_no  =   $data['cloth_no'];
         $laundry->save();
         return ;
     }
@@ -61,11 +61,12 @@ class LaundryDBRepository implements LaundryRepositoryInterface
     {
         $data = request()->all();
         $laundry    =   Laundry::findOrFail($laundryId);
-        $laundry->user_id = $data->user()->id;
-        $laundry->service_id = $data->service_id;
-        $laundry->address   = $data->address;
-        $laundry->amount    = is_delivered;
-        $laundry->cloth_no  =   $data->cloth_no;
+
+        $laundry->user_id = \request()->user()->id;
+        $laundry->service_id = $data['service_id'];
+        $laundry->address   = $data['address'];
+        $laundry->amount = $laundry->service->amount * $data['cloth_no'];
+        $laundry->cloth_no  =   $data['cloth_no'];
         $laundry->save();
     }
 
@@ -79,4 +80,5 @@ class LaundryDBRepository implements LaundryRepositoryInterface
     {
         return Laundry::findOrFail($laundryId)->delete();
     }
+
 }
