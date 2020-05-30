@@ -45,4 +45,12 @@ interface InvoiceRepositoryInterface
      * @return mixed
      */
     public function delete($invoiceId);
+
+    /**
+     * mark an invoice as paid
+     *
+     * @param $invoiceId
+     * @return mixed
+     */
+    public function markPaid($invoiceId);
 }
