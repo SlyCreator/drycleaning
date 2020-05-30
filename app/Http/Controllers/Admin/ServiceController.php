@@ -42,11 +42,11 @@ class ServiceController extends Controller
         $service = $this->service->create($service->all());
         return response()->json(['message'=>'success']);
     }
+
     /**
      * Display the specified resource.
      *
-     * @param Request $request
-     * @param Service $service
+     * @param $serviceId
      * @return void
      */
     public function show($serviceId)
@@ -74,7 +74,6 @@ class ServiceController extends Controller
      */
     public function delete($serviceId)
     {
-
         $this->service->delete($serviceId);
         return response()->json(['message'=>'success']);
     }
