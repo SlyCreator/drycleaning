@@ -85,6 +85,6 @@ class InvoiceController extends Controller
      */
     public function markPaid($invoiceId)
     {
-        $this->invoice->
+        $this->invoice->mark
     }
 }
