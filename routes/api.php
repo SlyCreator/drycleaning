@@ -56,6 +56,7 @@ Route::prefix('v1')->group(function(){
                         Route::get('/',[InvoiceController::class,'show']);
                         Route::post('/',[InvoiceController::class,'update']);
                         Route::delete('/',[InvoiceController::class,'delete']);
+                        Route::post('/paid',[InvoiceController::class,'markPaid']);
                     });
                 });
            // });

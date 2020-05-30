@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class InvoiceController extends Controller
 {
+    /**
+     * @var InvoiceRepositoryInterface
+     */
+    private $invoice;
+
     public function __construct(InvoiceRepositoryInterface $invoice)
     {
         $this->invoice = $invoice ;
@@ -21,7 +26,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-
+        $invoice    =   $this->invoice->fetchAll();
+        return response()->json(['data'=>$invoice]);
     }
 
     /**
@@ -30,7 +36,7 @@ class InvoiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
         //
     }
@@ -41,9 +47,9 @@ class InvoiceController extends Controller
      * @param  \App\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function show(Invoice $invoice)
+    public function show($invoiceId)
     {
-        //
+        return  $this->invoice->fetch($invoiceId);
     }
 
     /**
@@ -64,8 +70,21 @@ class InvoiceController extends Controller
      * @param  \App\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Invoice $invoice)
+    public function delete($invoiceId)
     {
-        //
+        $this->invoice->delete($invoiceId);
+        return response()->json(['message'=>'success']);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Invoice  $invoice
+     * @return \Illuminate\Http\Response
+     */
+    public function markPaid($invoiceId)
+    {
+        $this->invoice->
     }
 }
